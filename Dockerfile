@@ -37,4 +37,5 @@ export OS_COMPUTE_API_VERSION=2                                                 
 export OS_IMAGE_API_VERSION=2                                                       \n\ 
 export OS_VOLUME_API_VERSION=3                                                      \n\ 
 export OS_REGION_NAME=regionOne                                                     \n\ 
-export PS1="(\$OS_USERNAME|\$OS_PROJECT_NAME@\$OS_CLOUDNAME)"\ $PS1 ' >> /root/.bashrc
+export PS1="(\e[0;31m\$OS_USERNAME\e[m|\e[0;32m\$OS_PROJECT_NAME\e[m@\e[0;36m\$OS_CLOUDNAME\e[m)"\ $PS1 ' >> /root/.bashrc
+
