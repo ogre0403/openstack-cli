@@ -1,10 +1,15 @@
 FROM alpine:latest
 
+# add self-signed CA
+# https://stackoverflow.com/questions/67231714/how-to-add-trusted-root-ca-to-docker-alpine
+COPY tls-ca-bundle.pem /usr/local/share/ca-certificates/my-cert.crt
+RUN cat /usr/local/share/ca-certificates/my-cert.crt >> /etc/ssl/certs/ca-certificates.crt
 
 RUN apk add python3-dev py3-pip linux-headers gcc musl-dev 
 
 RUN pip3 install --upgrade pip setuptools && \
-    pip3 install python-openstackclient
+    pip3 install python-openstackclient   && \
+    pip3 install python-manilaclient
 
 RUN apk del gcc musl-dev linux-headers libffi-dev \
   && rm -rf /var/cache/apk/*
@@ -45,5 +50,5 @@ export PS1="[\u \W (U:\e[0;31m\$OS_USERNAME\e[m|P:\e[0;32m\$OS_PROJECT_NAME\e[m)
 # alias and auto-complete for alias command
 RUN echo $'                               \n\
 complete -F _openstack opsk               \n\
-alias opsk=\'openstack --insecure\'       \n\ 
+alias opsk=\'openstack \'                 \n\ 
 ' >> /root/.bashrc
