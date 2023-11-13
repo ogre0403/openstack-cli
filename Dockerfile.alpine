@@ -5,7 +5,7 @@ FROM alpine:latest
 COPY tls-ca-bundle.pem /usr/local/share/ca-certificates/my-cert.crt
 RUN cat /usr/local/share/ca-certificates/my-cert.crt >> /etc/ssl/certs/ca-certificates.crt
 
-RUN apk add python3-dev py3-pip linux-headers gcc musl-dev 
+RUN apk add python3-dev py3-pip linux-headers gcc musl-dev jq yq
 
 RUN pip3 install --upgrade pip setuptools && \
     pip3 install python-openstackclient   && \
