@@ -17,7 +17,7 @@ RUN apk del gcc musl-dev linux-headers libffi-dev \
  
 
 RUN apk add bash bash-completion && \
-    echo 'source /etc/profile.d/bash_completion.sh' >> /root/.bashrc && \
+    echo 'source /etc/bash/bash_completion.sh' >> /root/.bashrc && \
     echo 'source <(openstack complete)' >> /root/.bashrc
 
 
@@ -38,11 +38,12 @@ export OS_CLOUDNAME=overcloud                                                   
 export OS_AUTH_TYPE=password                                                        \n\
 export OS_PASSWORD=${OS_PASSWORD:=password}                                         \n\
 export OS_AUTH_URL=${OS_AUTH_URL:=https://10.10.10.10:5000}                         \n\
-export OS_IDENTITY_API_VERSION=3                                                     \n\
+export OS_IDENTITY_API_VERSION=3                                                    \n\
 export OS_COMPUTE_API_VERSION=2                                                     \n\
 export OS_IMAGE_API_VERSION=2                                                       \n\
 export OS_VOLUME_API_VERSION=3                                                      \n\
 export OS_REGION_NAME=${OS_REGION_NAME:=regionOne}                                  \n\
+export CLIFF_FIT_WIDTH=1                                                            \n\
 export PS1="[\u \W (U:\e[0;31m\$OS_USERNAME\e[m|P:\e[0;32m\$OS_PROJECT_NAME\e[m) ]$ " ' >> /root/.bashrc
 
 
