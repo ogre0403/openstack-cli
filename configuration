@@ -1,0 +1,30 @@
+#! /bin/bash
+
+
+read -p 'Enter user name    (admin): ' OS_USERNAME
+OS_USERNAME=${OS_USERNAME:=admin}
+
+read -p 'Enter password     (Not display): ' -s OS_PASSWORD
+echo
+
+read -p 'Enter region name  (RegionOne): ' OS_REGION_NAME
+OS_REGION_NAME=${OS_REGION_NAME:=RegionOne}
+
+read -p 'Enter auth url     (http://10.252.0.100:5000/v3): ' OS_AUTH_URL
+OS_AUTH_URL=${OS_AUTH_URL:=http://10.252.0.100:5000/v3}
+
+read -p 'Enter project name (admin): ' OS_PROJECT_NAME
+OS_PROJECT_NAME=${OS_PROJECT_NAME:=admin}
+
+
+mkdir -p /root/.openstack/
+
+echo $"                                     
+export OS_USERNAME=${OS_USERNAME}           
+export OS_PASSWORD=${OS_PASSWORD}           
+export OS_REGION_NAME=${OS_REGION_NAME}     
+export OS_AUTH_URL=${OS_AUTH_URL}           
+export OS_PROJECT_NAME=${OS_PROJECT_NAME}   
+"  > /root/.openstack/openrc
+
+

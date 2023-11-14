@@ -1,9 +1,14 @@
-FROM alpine:latest
+FROM alpine:3.17.3
 
 # add self-signed CA
 # https://stackoverflow.com/questions/67231714/how-to-add-trusted-root-ca-to-docker-alpine
-COPY tls-ca-bundle.pem /usr/local/share/ca-certificates/my-cert.crt
-RUN cat /usr/local/share/ca-certificates/my-cert.crt >> /etc/ssl/certs/ca-certificates.crt
+# COPY tls-ca-bundle.pem /usr/local/share/ca-certificates/my-cert.crt
+# RUN cat /usr/local/share/ca-certificates/my-cert.crt >> /etc/ssl/certs/ca-certificates.crt
+
+WORKDIR /openstack-cli
+
+COPY configuration /openstack-cli/configuration
+
 
 RUN apk add python3-dev py3-pip linux-headers gcc musl-dev jq yq
 
@@ -17,7 +22,7 @@ RUN apk del gcc musl-dev linux-headers libffi-dev \
  
 
 RUN apk add bash bash-completion && \
-    echo 'source /etc/bash/bash_completion.sh' >> /root/.bashrc && \
+    echo 'source /etc/profile.d/bash_completion.sh' >> /root/.bashrc && \
     echo 'source <(openstack complete)' >> /root/.bashrc
 
 
@@ -51,5 +56,13 @@ export PS1="[\u \W (U:\e[0;31m\$OS_USERNAME\e[m|P:\e[0;32m\$OS_PROJECT_NAME\e[m)
 # alias and auto-complete for alias command
 RUN echo $'                               \n\
 complete -F _openstack opsk               \n\
-alias opsk=\'openstack \'                 \n\ 
+alias opsk=\'openstack \'                 \n\
 ' >> /root/.bashrc
+
+RUN echo $'                               \n\
+if [ -f /root/.openstack/openrc ]; then   \n\
+    source /root/.openstack/openrc        \n\
+fi                                        \n\
+' >> /root/.bashrc
+
+CMD ["bash", "-c", "/openstack-cli/configuration"]
