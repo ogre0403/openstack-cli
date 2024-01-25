@@ -14,6 +14,7 @@ RUN apk add python3-dev py3-pip linux-headers gcc musl-dev jq yq
 
 RUN pip3 install --upgrade pip setuptools && \
     pip3 install python-openstackclient   && \
+    pip3 install python-octaviaclient     && \
     pip3 install python-manilaclient
 
 RUN apk del gcc musl-dev linux-headers libffi-dev \
