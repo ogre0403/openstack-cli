@@ -58,6 +58,7 @@ export PS1="[\u \W (U:\e[0;31m\$OS_USERNAME\e[m|P:\e[0;32m\$OS_PROJECT_NAME\e[m)
 RUN echo $'                               \n\
 complete -F _openstack opsk               \n\
 alias opsk=\'openstack \'                 \n\
+alias ll=\'ls -l \'                       \n\
 ' >> /root/.bashrc
 
 RUN echo $'                               \n\
